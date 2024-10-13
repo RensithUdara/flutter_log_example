@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:testapp/data/rotationgfile_output.dart';
+import 'package:testapp/user_log.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Logger Example',
+      title: 'User Log Example',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -71,6 +72,12 @@ class MyHomePage extends StatelessWidget {
 
   void _logWtf() {
     logger.wtf('This is a WTF log message');
+  }
+
+  // Method to handle download action
+  void _downloadLogs() {
+    logger.i('Download button clicked: Logs will be downloaded.');
+    // Implement your download logic here
   }
 
   @override
@@ -126,6 +133,39 @@ class MyHomePage extends StatelessWidget {
               icon: Icons.sentiment_very_dissatisfied,
               color: Colors.purple,
               onPressed: _logWtf,
+            ),
+            const SizedBox(height: 20),
+            // Download TextButton
+            TextButton(
+              onPressed: () {
+                // Placeholder for download logic
+                _downloadLogs();
+
+                // Navigate to the UserLogScreen to show the user logs
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const UserLogScreen(),
+                  ),
+                );
+              },
+              style: TextButton.styleFrom(
+                backgroundColor:
+                    Colors.blueAccent, // Give it a color for better visibility
+                padding:
+                    const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              child: const Text(
+                'Download Logs',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors
+                      .white, // Make the text color white to contrast the background
+                ),
+              ),
             ),
           ],
         ),

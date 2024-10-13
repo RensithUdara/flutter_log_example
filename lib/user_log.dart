@@ -227,7 +227,7 @@ class UserLogScreenState extends State<UserLogScreen> {
               },
               child: Text(secondaryButtonLabel),
             ),
-            TextButton(
+            ElevatedButton(
               onPressed: () {
                 primaryButtonFunction();
                 Navigator.of(context).pop();
@@ -245,6 +245,7 @@ class UserLogScreenState extends State<UserLogScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('User Log Files'),
+        backgroundColor: const Color(0xFF1E88E5), // Changed color
       ),
       body: Column(
         children: [
@@ -253,7 +254,7 @@ class UserLogScreenState extends State<UserLogScreen> {
             child: Card(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12)),
-              elevation: 16,
+              elevation: 8, // Reduce elevation
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -262,9 +263,9 @@ class UserLogScreenState extends State<UserLogScreen> {
                     const Text(
                       'Filter Logs',
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: Color.fromRGBO(255, 110, 60, 1),
+                        color: Colors.black,
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -272,7 +273,7 @@ class UserLogScreenState extends State<UserLogScreen> {
                       children: [
                         const Icon(
                           Icons.filter_list,
-                          color: Color.fromRGBO(255, 110, 60, 1),
+                          color: Colors.blueGrey,
                         ),
                         const SizedBox(width: 8),
                         const Text('Filter by Log Level: '),
@@ -316,7 +317,11 @@ class UserLogScreenState extends State<UserLogScreen> {
               child: isLoading
                   ? const Center(child: CircularProgressIndicator())
                   : filteredLogFiles.isEmpty
-                      ? const Center(child: Text('No logs available'))
+                      ? const Center(
+                          child: Text(
+                          'No logs available',
+                          style: TextStyle(fontSize: 16),
+                        ))
                       : ListView.builder(
                           itemCount: filteredLogFiles.length,
                           itemBuilder: (context, index) {
@@ -328,16 +333,17 @@ class UserLogScreenState extends State<UserLogScreen> {
                                   horizontal: 8.0, vertical: 4.0),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12)),
-                              elevation: 16,
+                              elevation: 8, // Changed to reduce the shadow
                               child: ListTile(
                                 leading: const Icon(
                                   Icons.insert_drive_file,
-                                  color: Color.fromRGBO(255, 110, 60, 1),
+                                  color: Colors.blueAccent, // Updated color
                                 ),
                                 title: Text(
                                   logFile.path.split('/').last,
                                   style: const TextStyle(
-                                      fontWeight: FontWeight.w500),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16),
                                 ),
                                 subtitle: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -345,20 +351,18 @@ class UserLogScreenState extends State<UserLogScreen> {
                                     Text(
                                       'Size: ${(logFile.lengthSync() / 1024).toStringAsFixed(2)} KB',
                                       style: TextStyle(
-                                          color: Colors.grey[600],
-                                          fontSize: 11),
+                                          color: Colors.grey[600], fontSize: 12),
                                     ),
                                     Text(
                                       'Last Modified: ${_formatDate(logFile.lastModifiedSync())}',
                                       style: TextStyle(
-                                          color: Colors.grey[600],
-                                          fontSize: 11),
+                                          color: Colors.grey[600], fontSize: 12),
                                     ),
                                     if (remainingTime != null)
                                       Text(
                                         'Remaining Time: ${_formatDuration(remainingTime)}',
                                         style: const TextStyle(
-                                            color: Colors.red, fontSize: 11),
+                                            color: Colors.red, fontSize: 12),
                                       ),
                                   ],
                                 ),
@@ -395,7 +399,7 @@ class UserLogScreenState extends State<UserLogScreen> {
                                               Navigator.pop(context),
                                           child: const Text('Close'),
                                         ),
-                                        TextButton(
+                                        ElevatedButton(
                                           onPressed: () async {
                                             Navigator.pop(context);
                                             await _downloadLogFile(logFile);

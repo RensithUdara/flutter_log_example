@@ -84,8 +84,9 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Logger Example'),
+        title: const Text('User Log Example'),
         centerTitle: true,
+        backgroundColor: Colors.blueAccent, // Updated app bar color
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -109,21 +110,21 @@ class MyHomePage extends StatelessWidget {
             _buildLogButton(
               context,
               text: 'Log Info',
-              icon: Icons.info,
+              icon: Icons.info_outline,
               color: Colors.lightBlue,
               onPressed: _logInfo,
             ),
             _buildLogButton(
               context,
               text: 'Log Warning',
-              icon: Icons.warning,
+              icon: Icons.warning_amber_outlined,
               color: Colors.orange,
               onPressed: _logWarning,
             ),
             _buildLogButton(
               context,
               text: 'Log Error',
-              icon: Icons.error,
+              icon: Icons.error_outline,
               color: Colors.red,
               onPressed: _logError,
             ),
@@ -131,12 +132,12 @@ class MyHomePage extends StatelessWidget {
               context,
               text: 'Log WTF',
               icon: Icons.sentiment_very_dissatisfied,
-              color: Colors.purple,
+              color: Colors.purple.shade500,
               onPressed: _logWtf,
             ),
             const SizedBox(height: 20),
-            // Download TextButton
-            TextButton(
+            // Download ElevatedButton
+            ElevatedButton.icon(
               onPressed: () {
                 // Placeholder for download logic
                 _downloadLogs();
@@ -149,21 +150,17 @@ class MyHomePage extends StatelessWidget {
                   ),
                 );
               },
-              style: TextButton.styleFrom(
-                backgroundColor:
-                    Colors.blueAccent, // Give it a color for better visibility
+              icon: const Icon(Icons.download_rounded),
+              label: const Text(
+                'Download Logs',
+                style: TextStyle(fontSize: 18),
+              ),
+              style: ElevatedButton.styleFrom(
+                primary: Colors.blueAccent.shade100,
                 padding:
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              child: const Text(
-                'Download Logs',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors
-                      .white, // Make the text color white to contrast the background
                 ),
               ),
             ),
